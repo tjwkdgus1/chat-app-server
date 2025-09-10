@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>실시간 채팅</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+</head>
+<body>
+  <div class="chat-container">
+    <h1>실시간 채팅</h1>
+    <div id="chat-box" class="chat-box"></div>
+    <div class="input-area">
+      <input id="nickname" type="text" placeholder="닉네임 입력" />
+      <input id="message" type="text" placeholder="메시지 입력" />
+      <button id="sendBtn">전송</button>
+    </div>
+  </div>
+  <script src="client.js"></script>
+</body>
+</html>
