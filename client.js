@@ -1,27 +1,30 @@
-const socket = io("https://chat-app-server-a447.onrender.com"); // 배포 후 URL 변경
+const socket = io("https://chat-app-server.onrender.com");
+const messagesList = document.getElementById("messages");
+const form = document.getElementById("form");
+const input = document.getElementById("input");
 
-const chatBox = document.getElementById("chat-box");
-const nicknameInput = document.getElementById("nickname");
-const messageInput = document.getElementById("message");
-const sendBtn = document.getElementById("sendBtn");
+// ✅ 기존 채팅 기록 불러오기
+socket.on("chat history", (history) => {
+  history.forEach((msg) => {
+    const item = document.createElement("li");
+    item.textContent = msg;
+    messagesList.appendChild(item);
+  });
+});
 
-function sendMessage() {
-  const nickname = nicknameInput.value.trim();
-  const message = messageInput.value.trim();
+// 새 메시지 수신
+socket.on("chat message", (msg) => {
+  const item = document.createElement("li");
+  item.textContent = msg;
+  messagesList.appendChild(item);
+  window.scrollTo(0, document.body.scrollHeight);
+});
 
-  if (!nickname || !message) return;
-  socket.emit("chatMessage", { nickname, message });
-  messageInput.value = "";
-}
-
-sendBtn.addEventListener("click", sendMessage);
-messageInput.addEventListener("keypress", (e) => { if (e.key === "Enter") sendMessage(); });
-
-socket.on("chatMessage", (data) => {
-  const msg = document.createElement("div");
-  msg.classList.add("chat-message");
-  msg.classList.add(data.nickname === nicknameInput.value.trim() ? "self" : "other");
-  msg.textContent = `${data.nickname}: ${data.message}`;
-  chatBox.appendChild(msg);
-  chatBox.scrollTop = chatBox.scrollHeight;
+// 메시지 전송
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  if (input.value) {
+    socket.emit("chat message", input.value);
+    input.value = "";
+  }
 });
