@@ -1,4 +1,4 @@
-const socket = io("http://localhost:3000"); // 배포 후 URL 변경
+const socket = io("https://chat-app-server-a447.onrender.com"); // 배포 후 URL 변경
 
 const chatBox = document.getElementById("chat-box");
 const nicknameInput = document.getElementById("nickname");
