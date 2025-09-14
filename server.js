@@ -25,10 +25,15 @@ io.on("connection", (socket) => {
 
   // receive message from client
   socket.on("chat message", (msg) => {
-    const text = String(msg).slice(0, 1000); // simple sanitization/limit
-    messages.push(text);
+    // 클라이언트로부터 객체 형태의 메시지를 받음
+    const { name, text } = msg;
+    const sanitizedText = String(text).slice(0, 1000); // simple sanitization/limit
+    // 이름과 텍스트를 포함하는 객체를 저장
+    const messageObject = { name, text: sanitizedText };
+    messages.push(messageObject);
     if (messages.length > 500) messages.shift();
-    io.emit("chat message", text);
+    // 모든 클라이언트에게 객체 형태로 메시지 전송
+    io.emit("chat message", messageObject);
   });
 
   socket.on("disconnect", () => {
