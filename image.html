@@ -130,12 +130,22 @@
         overlay.addEventListener('click', closeSidebarFunc);
 
         function downloadImage() {
-            const link = document.createElement('a');
-            link.href = 'https://i.ibb.co/QjpML95y/image.jpg';
-            link.download = 'image.jpg';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
+            fetch('https://i.ibb.co/QjpML95y/image.jpg')
+                .then(response => response.blob())
+                .then(blob => {
+                    const url = window.URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.download = 'image.jpg';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    window.URL.revokeObjectURL(url);
+                })
+                .catch(error => {
+                    console.log('Download failed, opening in new tab:', error);
+                    window.open('https://i.ibb.co/QjpML95y/image.jpg', '_blank');
+                });
         }
     </script>
 </body>
