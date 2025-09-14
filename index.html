@@ -1,23 +1,20 @@
-<!doctype html>
-<html lang="ko">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>실시간 채팅</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <title>Chat App</title>
 </head>
 <body>
-  <div class="chat-container">
-    <h1>실시간 채팅</h1>
-    <ul id="messages"></ul>
-    <form id="form">
-      <input id="input" autocomplete="off" placeholder="메시지를 입력하세요..." />
-      <button type="submit">보내기</button>
-    </form>
-  </div>
+  <h1>Chat App</h1>
+  
+  <input id="username" placeholder="이름을 입력하세요" />
+  <br><br>
+  <input id="message" placeholder="메시지를 입력하세요" />
+  <button onclick="sendMessage()">전송</button>
 
-  <!-- Use CDN socket.io client (works when client is hosted on GitHub Pages) -->
-  <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+  <ul id="messages"></ul>
+
+  <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
   <script src="client.js"></script>
 </body>
 </html>
