@@ -3,6 +3,33 @@ body { font-family: Arial, sans-serif; background:#f0f2f5; margin:0; display:fle
 h1{margin:0 0 10px 0;text-align:center}
 #messages{list-style:none;padding:8px;margin:0;height:300px;overflow:auto;border:1px solid #eee;border-radius:6px}
 #messages li{padding:6px 8px;border-radius:6px;margin-bottom:6px;background:#f7f7f7}
-form{display:flex;gap:8px;margin-top:10px}
-input{flex:1;padding:10px;border:1px solid #ddd;border-radius:6px}
-button{padding:10px 14px;border:none;background:#0069ff;color:#fff;border-radius:6px;cursor:pointer}
+
+/* 폼 스타일 조정 */
+form {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+  align-items: center; /* 요소들을 수직 중앙 정렬 */
+}
+
+/* input 스타일을 공통으로 사용하지만, 이름 입력과 메시지 입력에 따라 구분이 필요하면 별도 클래스 부여 */
+input {
+  flex: 1; /* 가능한 공간을 채우도록 */
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+/* 이름 입력창에 대한 별도 스타일이 필요할 경우 */
+#name-input {
+  /* flex: 0.5; /* 이름 입력창의 너비를 좀 더 작게 하고 싶다면 */ */
+}
+
+button {
+  padding: 10px 14px;
+  border: none;
+  background:#0069ff;
+  color:#fff;
+  border-radius:6px;
+  cursor:pointer;
+}
