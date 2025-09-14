@@ -1,23 +1,156 @@
-<!doctype html>
-<html lang="ko">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>실시간 채팅</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Forum</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
 </head>
-<body>
-  <div class="chat-container">
-    <h1>실시간 채팅</h1>
-    <ul id="messages"></ul>
-    <form id="form">
-      <input id="name-input" autocomplete="off" placeholder="이름" required />
-      <input id="input" autocomplete="off" placeholder="메시지를 입력하세요..." />
-      <button type="submit">Send</button>
-    </form>
+<body class="min-h-screen bg-slate-900 text-white">
+
+  <!-- Header -->
+  <header class="bg-slate-800 border-b border-slate-700 px-4 py-3">
+    <div class="flex items-center justify-between max-w-7xl mx-auto">
+      <div class="flex items-center gap-4">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 bg-cyan-500 rounded-full flex items-center justify-center">
+            <div class="w-4 h-4 bg-black rounded-full"></div>
+          </div>
+          <span class="text-slate-400">Main</span>
+        </div>
+      </div>
+      <div class="flex items-center gap-3">
+        <button class="bg-cyan-500 hover:bg-cyan-600 text-white px-4 py-2 rounded transition-colors">Log In</button>
+        <button class="text-slate-400 hover:text-white p-2">
+          <i data-lucide="search" class="w-5 h-5"></i>
+        </button>
+        <button class="text-slate-400 hover:text-white p-2">
+          <i data-lucide="menu" class="w-5 h-5"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="max-w-7xl mx-auto px-4 py-6">
+    <div class="mb-6">
+      <div class="flex items-center gap-2 mb-4">
+        <h2 class="text-xl font-semibold">Categories</h2>
+        <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400"></i>
+      </div>
+    </div>
+
+    <div class="space-y-6">
+      <!-- News Section -->
+      <div class="bg-slate-800 rounded-lg border-l-4 border-red-500">
+        <div class="p-4">
+          <div class="flex items-center gap-2 mb-4">
+            <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+            <h3 class="text-lg font-semibold">News</h3>
+          </div>
+          <div class="space-y-3">
+            <a href="site-launch.html" class="block hover:bg-slate-700 p-3 rounded transition-colors">
+              <div class="flex items-center justify-between">
+                <div>
+                  <h4 class="font-medium text-white hover:text-cyan-400">Site Launch 2025.09.14</h4>
+                  <p class="text-sm text-slate-400 mt-1">Welcome to our new community platform!</p>
+                  <span class="text-xs text-slate-500">1d</span>
+                </div>
+                <div class="text-slate-400 text-sm">
+                  <span class="bg-slate-700 px-2 py-1 rounded text-xs">1</span>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-700">
+            <span class="text-xs text-slate-500">1 total • 1 / month</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chat Section -->
+      <div class="bg-slate-800 rounded-lg border-l-4 border-green-500">
+        <div class="p-4">
+          <div class="flex items-center gap-2 mb-4">
+            <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+            <h3 class="text-lg font-semibold">Chat</h3>
+          </div>
+
+          <div class="chat-container">
+            <div class="bg-slate-700 rounded-lg p-4 mb-4 max-h-64 overflow-y-auto">
+              <ul id="messages" class="space-y-2 text-sm">
+                <li class="text-slate-400">Welcome to the chat! Start a conversation...</li>
+              </ul>
+            </div>
+            
+            <form id="form" class="space-y-3">
+              <input 
+                id="name-input" 
+                autocomplete="off" 
+                placeholder="Your name" 
+                required 
+                class="w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded text-white placeholder-slate-400 focus:outline-none focus:border-cyan-500"
+              />
+              <div class="flex gap-2">
+                <input 
+                  id="input" 
+                  autocomplete="off" 
+                  placeholder="Type your message..." 
+                  class="flex-1 px-3 py-2 bg-slate-700 border border-slate-600 rounded text-white placeholder-slate-400 focus:outline-none focus:border-cyan-500"
+                />
+                <button 
+                  type="submit" 
+                  class="bg-cyan-500 hover:bg-cyan-600 text-white px-4 py-2 rounded transition-colors"
+                >
+                  Send
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
-  <script src="client.js"></script>
+  <!-- JS Scripts -->
+  <script>
+    lucide.createIcons();
+
+    // 서버 URL (Render 서버)
+    const SERVER_URL = "https://chat-app-server-a447.onrender.com";
+    const socket = io(SERVER_URL, { transports: ['websocket', 'polling'] });
+
+    const form = document.getElementById('form');
+    const nameInput = document.getElementById('name-input');
+    const messageInput = document.getElementById('input');
+    const messages = document.getElementById('messages');
+
+    // 기존 채팅 기록 불러오기
+    socket.on("chat history", (history) => {
+      messages.innerHTML = "";
+      history.forEach(msg => addMessage(msg));
+    });
+
+    // 새로운 메시지 수신
+    socket.on("chat message", (msg) => addMessage(msg));
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      if (nameInput.value && messageInput.value) {
+        socket.emit("chat message", { name: nameInput.value, message: messageInput.value });
+        messageInput.value = '';
+      }
+    });
+
+    function addMessage(msg) {
+      const li = document.createElement('li');
+      li.innerHTML = `<span class="text-cyan-400 font-medium">${msg.name}:</span> <span class="text-white">${msg.message}</span>`;
+      messages.appendChild(li);
+      messages.scrollTop = messages.scrollHeight;
+    }
+  </script>
+
 </body>
 </html>
