@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drawing Board</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+</head>
+<body class="min-h-screen bg-slate-900 text-white">
+    <!-- Header -->
+    <header class="bg-slate-800 border-b border-slate-700 px-4 py-3">
+        <div class="flex items-center justify-between max-w-7xl mx-auto">
+            <div class="flex items-center gap-4">
+                <a href="forum.html" class="text-slate-400 hover:text-white">
+                    <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                </a>
+                <div class="flex items-center gap-2">
+                    <!-- Changed palette icon to donut shape with orange color -->
+                    <div class="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center">
+                        <div class="w-4 h-4 bg-slate-800 rounded-full"></div>
+                    </div>
+                    <span class="text-slate-400">Drawing Board</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 py-6">
+        <div class="bg-slate-800 rounded-lg p-6">
+            <h2 class="text-xl font-semibold mb-4">Digital Drawing Board</h2>
+            
+            <!-- Drawing Tools -->
+            <div class="flex flex-wrap items-center gap-4 mb-6 p-4 bg-slate-700 rounded-lg">
+                <div class="flex items-center gap-2">
+                    <label class="text-sm text-slate-300">Brush Size:</label>
+                    <input type="range" id="brushSize" min="1" max="50" value="5" class="w-20">
+                    <span id="brushSizeValue" class="text-sm text-slate-400">5px</span>
+                </div>
+                
+                <div class="flex items-center gap-2">
+                    <label class="text-sm text-slate-300">Color:</label>
+                    <input type="color" id="colorPicker" value="#ffffff" class="w-10 h-8 rounded border border-slate-600">
+                </div>
+                
+                <button id="clearCanvas" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded transition-colors">
+                    <i data-lucide="trash-2" class="w-4 h-4 inline mr-1"></i>
+                    Clear
+                </button>
+                
+                <button id="saveCanvas" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded transition-colors">
+                    <i data-lucide="download" class="w-4 h-4 inline mr-1"></i>
+                    Save
+                </button>
+            </div>
+
+            <!-- Canvas Container -->
+            <div class="bg-white rounded-lg p-4 shadow-lg">
+                <canvas 
+                    id="drawingCanvas" 
+                    width="800" 
+                    height="600" 
+                    class="border border-gray-300 rounded cursor-crosshair w-full max-w-full"
+                    style="max-height: 600px;"
+                ></canvas>
+            </div>
+
+            <div class="mt-4 text-sm text-slate-400">
+                <p>Click and drag to draw. Use the tools above to customize your brush.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        const canvas = document.getElementById('drawingCanvas');
+        const ctx = canvas.getContext('2d');
+        const brushSizeSlider = document.getElementById('brushSize');
+        const brushSizeValue = document.getElementById('brushSizeValue');
+        const colorPicker = document.getElementById('colorPicker');
+        const clearButton = document.getElementById('clearCanvas');
+        const saveButton = document.getElementById('saveCanvas');
+
+        let isDrawing = false;
+        let brushSize = 5;
+        let brushColor = '#ffffff';
+
+        // Set canvas background to white
+        ctx.fillStyle = 'white';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // Update brush size
+        brushSizeSlider.addEventListener('input', (e) => {
+            brushSize = e.target.value;
+            brushSizeValue.textContent = brushSize + 'px';
+        });
+
+        // Update brush color
+        colorPicker.addEventListener('change', (e) => {
+            brushColor = e.target.value;
+        });
+
+        // Mouse events for drawing
+        canvas.addEventListener('mousedown', startDrawing);
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mouseup', stopDrawing);
+        canvas.addEventListener('mouseout', stopDrawing);
+
+        // Touch events for mobile
+        canvas.addEventListener('touchstart', handleTouch);
+        canvas.addEventListener('touchmove', handleTouch);
+        canvas.addEventListener('touchend', stopDrawing);
+
+        function startDrawing(e) {
+            isDrawing = true;
+            draw(e);
+        }
+
+        function draw(e) {
+            if (!isDrawing) return;
+
+            const rect = canvas.getBoundingClientRect();
+            const scaleX = canvas.width / rect.width;
+            const scaleY = canvas.height / rect.height;
+            const x = (e.clientX - rect.left) * scaleX;
+            const y = (e.clientY - rect.top) * scaleY;
+
+            ctx.lineWidth = brushSize;
+            ctx.lineCap = 'round';
+            ctx.strokeStyle = brushColor;
+
+            ctx.lineTo(x, y);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+        }
+
+        function stopDrawing() {
+            if (isDrawing) {
+                isDrawing = false;
+                ctx.beginPath();
+            }
+        }
+
+        function handleTouch(e) {
+            e.preventDefault();
+            const touch = e.touches[0];
+            const mouseEvent = new MouseEvent(e.type === 'touchstart' ? 'mousedown' : 
+                                            e.type === 'touchmove' ? 'mousemove' : 'mouseup', {
+                clientX: touch.clientX,
+                clientY: touch.clientY
+            });
+            canvas.dispatchEvent(mouseEvent);
+        }
+
+        // Clear canvas
+        clearButton.addEventListener('click', () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = 'white';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        });
+
+        // Save canvas
+        saveButton.addEventListener('click', () => {
+            const link = document.createElement('a');
+            link.download = 'drawing.png';
+            link.href = canvas.toDataURL();
+            link.click();
+        });
+    </script>
+</body>
+</html>
