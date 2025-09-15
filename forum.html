@@ -13,7 +13,6 @@
         <div class="flex items-center justify-between max-w-7xl mx-auto">
             <div class="flex items-center gap-4">
                 <div class="flex items-center gap-2">
-                    <!-- Updated to donut shape with slate-800 center to match main table color -->
                     <div class="w-8 h-8 bg-cyan-500 rounded-full flex items-center justify-center">
                         <div class="w-4 h-4 bg-slate-800 rounded-full"></div>
                     </div>
@@ -22,11 +21,9 @@
             </div>
 
             <div class="flex items-center gap-3">
-                <!-- Removed Log In button -->
                 <button class="text-slate-400 hover:text-white p-2">
                     <i data-lucide="search" class="w-5 h-5"></i>
                 </button>
-                <!-- Added click handler for menu button -->
                 <button id="menu-btn" class="text-slate-400 hover:text-white p-2">
                     <i data-lucide="menu" class="w-5 h-5"></i>
                 </button>
@@ -34,7 +31,7 @@
         </div>
     </header>
 
-    <!-- Added sidebar menu -->
+    <!-- Sidebar -->
     <div id="sidebar" class="fixed top-0 right-0 h-full w-64 bg-slate-800 transform translate-x-full transition-transform duration-300 z-50 border-l border-slate-700">
         <div class="p-4">
             <div class="flex items-center justify-between mb-6">
@@ -57,12 +54,11 @@
         </div>
     </div>
 
-    <!-- Added overlay for sidebar -->
+    <!-- Overlay -->
     <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 hidden z-40"></div>
 
     <!-- Main Content -->
     <div class="max-w-7xl mx-auto px-4 py-6">
-        <!-- Categories Header -->
         <div class="mb-6">
             <div class="flex items-center gap-2 mb-4">
                 <h2 class="text-xl font-semibold">Categories</h2>
@@ -71,7 +67,7 @@
         </div>
 
         <div class="space-y-6">
-            <!-- Updated News Section with Site Launch article -->
+            <!-- News Section -->
             <div class="bg-slate-800 rounded-lg border-l-4 border-red-500">
                 <div class="p-4">
                     <div class="flex items-center gap-2 mb-4">
@@ -80,27 +76,12 @@
                     </div>
 
                     <div class="space-y-3">
-                        <a href="news0002.html" class="block hover:bg-slate-700 p-3 rounded transition-colors">
-                            <div class="flex items-center justify-between">
-                                <div>
-                                    <div class="flex items-center gap-2 mb-1">
-                                        <h4 class="font-medium text-white hover:text-cyan-400">New Chat Feature Added!</h4>
-                                    </div>
-                                    <p class="text-sm text-slate-400 mt-1">Connect with real-time messaging</p>
-                                    <span class="text-xs text-slate-500">1d</span>
-                                </div>
-                                <div class="text-slate-400 text-sm">
-                                    <span class="bg-slate-700 px-2 py-1 rounded text-xs">2</span>
-                                </div>
-                            </div>
-                        </a>
-
-                        <a href="news0001.html" class="block hover:bg-slate-700 p-3 rounded transition-colors">
+                        <a href="site-launch.html" class="block hover:bg-slate-700 p-3 rounded transition-colors">
                             <div class="flex items-center justify-between">
                                 <div>
                                     <h4 class="font-medium text-white hover:text-cyan-400">Site Launch 2025.09.14</h4>
                                     <p class="text-sm text-slate-400 mt-1">Welcome to our new community platform!</p>
-                                    <span class="text-xs text-slate-500">2d</span>
+                                    <span class="text-xs text-slate-500">1d</span>
                                 </div>
                                 <div class="text-slate-400 text-sm">
                                     <span class="bg-slate-700 px-2 py-1 rounded text-xs">1</span>
@@ -110,12 +91,12 @@
                     </div>
 
                     <div class="mt-4 pt-3 border-t border-slate-700">
-                        <span class="text-xs text-slate-500">2 total • 2 / month</span>
+                        <span class="text-xs text-slate-500">1 total • 1 / month</span>
                     </div>
                 </div>
             </div>
 
-            <!-- Added chat section below news -->
+            <!-- Chat Section -->
             <div class="bg-slate-800 rounded-lg border-l-4 border-green-500">
                 <div class="p-4">
                     <div class="flex items-center gap-2 mb-4">
@@ -159,6 +140,7 @@
         </div>
     </div>
 
+    <!-- 기존 UI 제어 스크립트 -->
     <script>
         lucide.createIcons();
         
@@ -180,23 +162,9 @@
         menuBtn.addEventListener('click', openSidebar);
         closeSidebar.addEventListener('click', closeSidebarFunc);
         overlay.addEventListener('click', closeSidebarFunc);
-        
-        const form = document.getElementById('form');
-        const nameInput = document.getElementById('name-input');
-        const messageInput = document.getElementById('input');
-        const messages = document.getElementById('messages');
-
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            if (nameInput.value && messageInput.value) {
-                const li = document.createElement('li');
-                li.innerHTML = `<span class="text-cyan-400 font-medium">${nameInput.value}:</span> <span class="text-white">${messageInput.value}</span>`;
-                messages.appendChild(li);
-                messageInput.value = '';
-                messages.scrollTop = messages.scrollHeight;
-            }
-        });
     </script>
+
+    <!-- ✅ Socket.IO와 클라이언트 코드 추가 -->
     <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
     <script src="client.js"></script>
 </body>
