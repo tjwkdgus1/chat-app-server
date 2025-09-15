@@ -79,15 +79,19 @@
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    <!-- New Image Card -->
+                    <!-- Updated image to use local file path instead of external URL -->
                     <div class="bg-slate-700 rounded-lg overflow-hidden hover:bg-slate-600 transition-colors">
                         <div class="aspect-square bg-slate-600 flex items-center justify-center">
                             <img src="https://i.ibb.co/QjpML95y/image.jpg" 
                                  alt="Image" 
-                                 class="w-full h-full object-cover">
+                                 class="w-full h-full object-cover"
+                                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="hidden w-full h-full items-center justify-center text-slate-400">
+                                <i data-lucide="image" class="w-12 h-12"></i>
+                            </div>
                         </div>
                         <div class="p-4">
-                            <h4 class="font-medium text-white mb-2">Image</h4>
+                            <h4 class="font-medium text-white mb-2">image.jpg</h4>
                             <p class="text-sm text-slate-400 mb-3">Downloaded image</p>
                             <div class="flex items-center justify-between">
                                 <span class="text-xs text-slate-500">JPG • Original</span>
@@ -129,13 +133,26 @@
         closeSidebar.addEventListener('click', closeSidebarFunc);
         overlay.addEventListener('click', closeSidebarFunc);
 
-        function downloadImage() {
-            const link = document.createElement('a');
-            link.href = 'https://i.ibb.co/QjpML95y/image.jpg';
-            link.download = 'image.jpg';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
+        async function downloadImage() {
+            try {
+                const imageUrl = 'https://i.ibb.co/QjpML95y/image.jpg';
+                const response = await fetch(imageUrl);
+                const blob = await response.blob();
+                
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = 'image.jpg';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
+                // Clean up the object URL
+                URL.revokeObjectURL(link.href);
+            } catch (error) {
+                console.error('Download failed:', error);
+                // Fallback: open image in new tab
+                window.open('https://i.ibb.co/QjpML95y/image.jpg', '_blank');
+            }
         }
     </script>
 </body>
