@@ -13,7 +13,6 @@
         <div class="flex items-center justify-between max-w-7xl mx-auto">
             <div class="flex items-center gap-4">
                 <div class="flex items-center gap-2">
-                    <!-- Updated to donut shape with slate-800 center to match main table color -->
                     <div class="w-8 h-8 bg-cyan-500 rounded-full flex items-center justify-center">
                         <div class="w-4 h-4 bg-slate-800 rounded-full"></div>
                     </div>
@@ -22,11 +21,9 @@
             </div>
 
             <div class="flex items-center gap-3">
-                <!-- Removed Log In button -->
                 <button class="text-slate-400 hover:text-white p-2">
                     <i data-lucide="search" class="w-5 h-5"></i>
                 </button>
-                <!-- Added click handler for menu button -->
                 <button id="menu-btn" class="text-slate-400 hover:text-white p-2">
                     <i data-lucide="menu" class="w-5 h-5"></i>
                 </button>
@@ -34,7 +31,7 @@
         </div>
     </header>
 
-    <!-- Added sidebar menu -->
+    <!-- Sidebar -->
     <div id="sidebar" class="fixed top-0 right-0 h-full w-64 bg-slate-800 transform translate-x-full transition-transform duration-300 z-50 border-l border-slate-700">
         <div class="p-4">
             <div class="flex items-center justify-between mb-6">
@@ -57,7 +54,7 @@
         </div>
     </div>
 
-    <!-- Added overlay for sidebar -->
+    <!-- Overlay -->
     <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 hidden z-40"></div>
 
     <!-- Main Content -->
@@ -71,7 +68,7 @@
         </div>
 
         <div class="space-y-6">
-            <!-- Updated News Section with Site Launch article -->
+            <!-- News Section -->
             <div class="bg-slate-800 rounded-lg border-l-4 border-red-500">
                 <div class="p-4">
                     <div class="flex items-center gap-2 mb-4">
@@ -115,7 +112,7 @@
                 </div>
             </div>
 
-            <!-- Added chat section below news -->
+            <!-- Chat Section -->
             <div class="bg-slate-800 rounded-lg border-l-4 border-green-500">
                 <div class="p-4">
                     <div class="flex items-center gap-2 mb-4">
@@ -159,6 +156,7 @@
         </div>
     </div>
 
+    <!-- Sidebar Script -->
     <script>
         lucide.createIcons();
         
@@ -180,25 +178,9 @@
         menuBtn.addEventListener('click', openSidebar);
         closeSidebar.addEventListener('click', closeSidebarFunc);
         overlay.addEventListener('click', closeSidebarFunc);
-        
-        const form = document.getElementById('form');
-        const nameInput = document.getElementById('name-input');
-        const messageInput = document.getElementById('input');
-        const messages = document.getElementById('messages');
-
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            if (nameInput.value && messageInput.value) {
-                const li = document.createElement('li');
-                li.innerHTML = `<span class="text-cyan-400 font-medium">${nameInput.value}:</span> <span class="text-white">${messageInput.value}</span>`;
-                messages.appendChild(li);
-                messageInput.value = '';
-                messages.scrollTop = messages.scrollHeight;
-            }
-        });
     </script>
-    
-    <!-- Added Socket.IO library and client script for server communication -->
+
+    <!-- Socket.IO Client -->
     <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
     <script src="client.js"></script>
 </body>
