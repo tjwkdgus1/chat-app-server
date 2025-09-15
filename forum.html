@@ -191,13 +191,13 @@
             if (nameInput.value && messageInput.value) {
                 const li = document.createElement('li');
                 li.innerHTML = `<span class="text-cyan-400 font-medium">${nameInput.value}:</span> <span class="text-white">${messageInput.value}</span>`;
-                messages.appendChild(li);
+                messages.apqpendChild(li);
                 messageInput.value = '';
                 messages.scrollTop = messages.scrollHeight;
             }
         });
     </script>
-    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
-    <script src="client.js"></script>
+   <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+   <script src="client.js"></script>
 </body>
 </html>
