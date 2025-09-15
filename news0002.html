@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Chat Feature Added! - Forum</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+</head>
+<body>
+    <div class="min-h-screen bg-slate-900 text-white">
+        <!-- Header -->
+        <header class="bg-slate-800 border-b border-slate-700 px-4 py-3">
+            <div class="flex items-center justify-between max-w-4xl mx-auto">
+                <a href="forum.html" class="flex items-center gap-2 text-slate-400 hover:text-white transition-colors">
+                    <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                    <span>Back to Forum</span>
+                </a>
+
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 bg-cyan-500 rounded-full flex items-center justify-center">
+                        <div class="w-4 h-4 bg-slate-800 rounded-full"></div>
+                    </div>
+                    <span class="text-slate-400">Main</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Article Content -->
+        <div class="max-w-4xl mx-auto px-4 py-8">
+            <article class="bg-slate-800 rounded-lg p-8">
+                <!-- Article Header -->
+                <div class="mb-6">
+                    <div class="flex items-center gap-2 text-red-500 text-sm font-medium mb-2">
+                        <div class="w-2 h-2 bg-red-500 rounded-full"></div>
+                        <span>NEWS</span>
+                    </div>
+
+                    <h1 class="text-3xl font-bold mb-4">New Chat Feature Added!</h1>
+
+                    <div class="flex items-center gap-4 text-slate-400 text-sm">
+                        <div class="flex items-center gap-1">
+                            <i data-lucide="calendar" class="w-4 h-4"></i>
+                            <span>September 15, 2025</span>
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <i data-lucide="user" class="w-4 h-4"></i>
+                            <span>Admin</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Article Body -->
+                <div class="prose prose-invert max-w-none">
+                    <div class="space-y-6 text-slate-300 leading-relaxed">
+                        <p class="text-lg">
+                            We're excited to share some thrilling news with our community! Starting today,
+                            <strong class="text-cyan-400">real-time Chat functionality</strong> has been added to our platform.
+                        </p>
+
+                        <div class="flex items-center gap-3 bg-slate-700 p-4 rounded-lg">
+                            <i data-lucide="message-circle" class="w-8 h-8 text-cyan-400"></i>
+                            <div>
+                                <h3 class="text-white font-semibold mb-1">Connect closer with real-time chat</h3>
+                                <p class="text-slate-300 text-sm">
+                                    Now you can communicate in real-time, not just through forum posts.
+                                </p>
+                            </div>
+                        </div>
+
+                        <p>
+                            With the new Chat feature, you can communicate with community members faster and more conveniently. Use
+                            chat anytime you have questions or need quick opinion exchanges.
+                        </p>
+
+                        <div class="bg-gradient-to-r from-cyan-900/30 to-blue-900/30 p-6 rounded-lg border border-cyan-500/20">
+                            <h4 class="text-cyan-400 font-semibold mb-3">Key Features:</h4>
+                            <ul class="space-y-2 text-slate-300">
+                                <li class="flex items-center gap-2">
+                                    <div class="w-2 h-2 bg-cyan-400 rounded-full"></div>
+                                    Real-time message sending and receiving
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <div class="w-2 h-2 bg-cyan-400 rounded-full"></div>
+                                    Online user status display
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <div class="w-2 h-2 bg-cyan-400 rounded-full"></div>
+                                    Clean and intuitive interface
+                                </li>
+                            </ul>
+                        </div>
+
+                        <p>
+                            You can access the Chat feature by clicking the chat icon in the bottom right corner of the main page.
+                            We look forward to a more vibrant community!
+                        </p>
+
+                        <div class="bg-slate-700 p-4 rounded-lg mt-8">
+                            <p class="text-cyan-400 font-medium">
+                                Please try out the new feature and leave us your feedback. Your opinions are invaluable for improving
+                                our platform!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Article Footer -->
+                <div class="mt-8 pt-6 border-t border-slate-700">
+                    <div class="flex items-center justify-between">
+                        <div class="text-slate-400 text-sm">Published on September 15, 2025</div>
+                        <a href="forum.html">
+                            <button class="border border-slate-600 text-slate-300 hover:bg-slate-700 bg-transparent px-4 py-2 rounded transition-colors">
+                                Back to Forum
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
