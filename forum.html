@@ -16,7 +16,7 @@
                     <div class="w-8 h-8 bg-cyan-500 rounded-full flex items-center justify-center">
                         <div class="w-4 h-4 bg-slate-800 rounded-full"></div>
                     </div>
-                    <span class="text-slate-400">Main</span>
+                    <span class="text-slate-400">KITTII</span>
                 </div>
             </div>
 
@@ -31,7 +31,7 @@
         </div>
     </header>
 
-    <!-- Sidebar Menu -->
+    <!-- Sidebar -->
     <div id="sidebar" class="fixed top-0 right-0 h-full w-64 bg-slate-800 transform translate-x-full transition-transform duration-300 z-50 border-l border-slate-700">
         <div class="p-4">
             <div class="flex items-center justify-between mb-6">
@@ -48,13 +48,13 @@
                     </div>
                     <span>Main</span>
                 </a>
-                <a href="/html/image.html" class="flex items-center gap-3 p-2 hover:bg-slate-700 rounded cursor-pointer">
+                <a href="image.html" class="flex items-center gap-3 p-2 hover:bg-slate-700 rounded cursor-pointer">
                     <div class="w-4 h-4 bg-purple-500 rounded-full flex items-center justify-center">
                         <div class="w-2 h-2 bg-slate-800 rounded-full"></div>
                     </div>
                     <span>Image</span>
                 </a>
-                <a href="/html/drawing.html" class="flex items-center gap-3 p-2 hover:bg-slate-700 rounded cursor-pointer">
+                <a href="drawing.html" class="flex items-center gap-3 p-2 hover:bg-slate-700 rounded cursor-pointer">
                     <div class="w-4 h-4 bg-orange-500 rounded-full flex items-center justify-center">
                         <div class="w-2 h-2 bg-slate-800 rounded-full"></div>
                     </div>
@@ -68,16 +68,14 @@
 
     <!-- Main Content -->
     <div class="max-w-7xl mx-auto px-4 py-6">
-        <!-- Categories Header -->
         <div class="mb-6">
             <div class="flex items-center gap-2 mb-4">
-                <h2 class="text-xl font-semibold">Categories</h2>
-                <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400"></i>
+                <h2 class="text-xl font-semibold">Main</h2>
             </div>
         </div>
 
         <div class="space-y-6">
-            <!-- News Section (그대로 유지) -->
+            <!-- News Section -->
             <div class="bg-slate-800 rounded-lg border-l-4 border-red-500">
                 <div class="p-4">
                     <div class="flex items-center gap-2 mb-4">
@@ -86,7 +84,7 @@
                     </div>
 
                     <div class="space-y-3">
-                        <a href="/html/news0002.html" class="block hover:bg-slate-700 p-3 rounded transition-colors">
+                        <a href="news0002.html" class="block hover:bg-slate-700 p-3 rounded transition-colors">
                             <div class="flex items-center justify-between">
                                 <div>
                                     <div class="flex items-center gap-2 mb-1">
@@ -101,7 +99,7 @@
                             </div>
                         </a>
 
-                        <a href="/html/news0001.html" class="block hover:bg-slate-700 p-3 rounded transition-colors">
+                        <a href="news0001.html" class="block hover:bg-slate-700 p-3 rounded transition-colors">
                             <div class="flex items-center justify-between">
                                 <div>
                                     <h4 class="font-medium text-white hover:text-cyan-400">Site Launch 2025.09.14</h4>
@@ -188,7 +186,7 @@
         overlay.addEventListener('click', closeSidebarFunc);
     </script>
     
-    <!-- Socket.IO + Client JS only -->
+    <!-- Socket.IO + client.js -->
     <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
     <script src="client.js"></script>
 </body>
