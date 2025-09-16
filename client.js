@@ -2,7 +2,7 @@
 const SERVER_URL = "https://chat-app-server-a447.onrender.com";
 
 // Socket.io 연결
-const socket = io(SERVER_URL, { transports: ['websocket', 'polling'] });
+const socket = io(SERVER_URL, { transports: ["websocket", "polling"] });
 
 const form = document.getElementById("form");
 const input = document.getElementById("input");
@@ -10,14 +10,16 @@ const messages = document.getElementById("messages");
 const nameInput = document.getElementById("name-input");
 
 // 사용자 이름 저장 변수
-let userName = '';
+let userName = "";
 
-socket.addEventListener("connect", () => {
+// 연결 성공
+socket.on("connect", () => {
   console.log("✅ socket connected:", socket.id);
 });
 
-socket.addEventListener("connect_error", (err) => {
-  console.error("connect_error:", err);
+// 연결 실패
+socket.on("connect_error", (err) => {
+  console.error("❌ connect_error:", err);
 });
 
 // 기존 채팅 기록 불러오기
@@ -44,7 +46,7 @@ form.addEventListener("submit", (e) => {
 
   userName = nameValue;
 
-  // 서버에 메시지 전송: 속성을 message로 통일
+  // 서버에 메시지 전송
   socket.emit("chat message", { name: userName, message: messageValue });
 
   input.value = "";
