@@ -6,7 +6,7 @@ const path = require("path");
 
 const app = express();
 app.use(cors());
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(__dirname)); // 프로젝트 루트도 정적 파일로 서빙
 
 const server = http.createServer(app);
 const io = new Server(server, {
